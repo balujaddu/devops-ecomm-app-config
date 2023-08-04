@@ -2,9 +2,9 @@ pipeline{
     agent any
 
     stages{
-        stage('Checkout'){
+        stage("checkout"){
             steps{
-                echo 'Checkinout source code';
+                echo "Checkinout source code";
                 bat 'git clone https://github.com/balujaddu/Ecom-app.git';
             }
         }
@@ -13,6 +13,17 @@ pipeline{
                 echo 'Building java project';
                 bat 'mvn clean package';
             }
+        }
+    }
+    post {
+        // Clean after build
+        always {
+            cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                               [pattern: '.propsfile', type: 'EXCLUDE']])
         }
     }
 }
