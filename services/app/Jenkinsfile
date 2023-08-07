@@ -10,11 +10,19 @@ pipeline{
         stage('Build'){
             steps{
                 echo 'Building java project';
-                //def mavenHome = tool name: "maven-3.8.1", type: "maven";
-                //def mavenCMD = "${mavenHome}/bin/mvn";
-                //bat "${mavenCMD} clean package";
                 bat "mvn clean package";
             }
+        }
+        stage('Code Quality'){
+            steps{
+                echo 'scaning the code with SonarQube';
+                withSonarQubeEnv(credentialsId: 'svc_sonar_token') {
+                    bat 'sonar:sonar';
+                }
+            }
+        }
+        stage('Build Management'){
+            archiveArtifacts artifacts: 'archiveArtifacts artifacts: \'target/*.jar, target/*.war\'', followSymlinks: false
         }
     }
     post {
