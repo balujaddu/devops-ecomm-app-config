@@ -4,8 +4,7 @@ pipeline{
     stages{
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'svc_git_cred', url: 'https://github.com/balujaddu/Ecom-app.git']]])
-                sh "ls -lart ./*"
+                git credentialsId: 'svc_git_cred', poll: false, url: 'https://github.com/balujaddu/Ecom-app.git';
             }
         }
         stage('Build'){
