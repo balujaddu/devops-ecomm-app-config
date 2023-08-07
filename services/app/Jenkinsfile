@@ -17,7 +17,7 @@ pipeline{
             steps{
                 echo 'scaning the code with SonarQube';
                 withSonarQubeEnv(installationName: 'SonarQube-9.2', credentialsId: 'svc_sonar_token') {
-                    bat 'sonar:sonar';
+                    bat 'mvn sonar:sonar';
                 }
             }
         }
