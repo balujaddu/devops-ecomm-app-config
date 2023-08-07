@@ -22,7 +22,10 @@ pipeline{
             }
         }
         stage('Build Management'){
-            archiveArtifacts artifacts: 'archiveArtifacts artifacts: \'target/*.jar, target/*.war\'', followSymlinks: false
+            steps{
+                echo 'Uploading artifacts to jfrog artifactory';
+                archiveArtifacts artifacts: 'archiveArtifacts artifacts: \'target/*.jar, target/*.war\'', followSymlinks: false;
+            }
         }
     }
     post {
