@@ -24,7 +24,7 @@ pipeline{
         stage('Build Management'){
             steps{
                 echo 'Uploading artifacts to jfrog artifactory';
-                archiveArtifacts artifacts: './target/*.war', followSymlinks: 'false';
+                archiveArtifacts artifacts: 'target/*.war', followSymlinks: 'false';
             }
         }
     }
