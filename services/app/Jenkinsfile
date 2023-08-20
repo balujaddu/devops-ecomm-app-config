@@ -30,7 +30,7 @@ pipeline{
         stage('Deployment'){
             steps{
                 echo 'Deploying war file to the tomcat server';
-                deploy adapters: [tomcat9(credentialsId: 'svc_tomcat_cred', path: '/webapps', url: 'http://localhost:8085')], contextPath: 'app', war: 'target/*.war';
+                deploy adapters: [tomcat9(credentialsId: 'svc_tomcat_cred', path: '/webapps', url: 'http://localhost:8085')], contextPath: '/app', war: 'target/*.war';
             }
         }
     }
